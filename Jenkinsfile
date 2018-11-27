@@ -48,6 +48,7 @@ podTemplate(
         stage ('PRD - Canary Deploy'){
             echo 'Performing a canary deployment on PRD'
             canaryDeploy('helloworld-msa', 'aloha', env.BUILD_NUMBER)
+            sh "oc set env dc aloha-${env.BUILD_NUMBER} KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.app.rafabene.com/auth -n helloworld-msa"
         }
 
     }
